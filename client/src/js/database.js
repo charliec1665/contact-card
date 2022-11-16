@@ -81,7 +81,7 @@ export const deleteDb = async (id) => {
     return result?.value;
 };
 
-export const editDb = async () => {
+export const editDb = async (id, name, email, phone, profile) => {
     // create a connection to the IndexedDB database and the version we want to use
     const contactDb = await openDB('contact_db', 1);
 

@@ -1,5 +1,4 @@
 const form = document.getElementById("formToggle");
-console.log(form);
 
 export const toggleForm = () => {
   if (form.style.display === "none") {
