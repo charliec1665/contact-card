@@ -1,22 +1,17 @@
 // Entry Point
-
-// Import indexedDb
-import { initDb, getDb, postDb } from './database';
-
+// Import functions
+import { initDb, postDb, deleteDb, editDb } from './database';
+import { fetchCards } from './cards';
 import { toggleForm, clearForm } from './form';
 
-// Import modules
-import ('./form');
-
-// Import CSS
-import '../css/index.css';
+// Import CSS files
+import "../css/index.css";
 
 // Import Bootstrap
-import { Tooltip, Toast, Popover } from "bootstrap";
+import { Tooltip, Toast, Popover } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { fetchCards } from './cards';
-
+// Import images
 import Logo from '../images/logo.png';
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
@@ -64,3 +59,34 @@ form.addEventListener('submit', event => {
     // Reload the DOM
     fetchCards();
 });
+
+// Card functionality
+// Adds deleteCard() to the global scope so each card has access to it.
+window.deleteCard = (e) => {
+    // Grabs the id from the button element attached to the contact card
+    let id = parseInt(e.id);
+    // Delete the card
+    deleteDb(id);
+    // Reload the DOM
+    fetchCards();
+};
+
+window.editCard = (e) => {
+    // Grabs the id from the button element attached to the contact card
+    // and sets a global variable to be used in the form element
+    profileId = parseInt(e.dataset.id);
+
+    // Grabs information to pre-populate the edit form
+    let editName = e.dataset.name;
+    let editEmail = e.dataset.email;
+    let editPhone = e.dataset.phone;
+
+    document.getElementById('name').value = editName;
+    document.getElementById('email').value = editEmail;
+    document.getElementById('phone').value = editPhone;
+
+    form.style.display = "block";
+
+    // Toggles the submit button so that it now updates an existing contact
+    submitBtnToUpdate = true;
+};
